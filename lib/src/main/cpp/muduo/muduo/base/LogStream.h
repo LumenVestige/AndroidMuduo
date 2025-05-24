@@ -77,7 +77,7 @@ class FixedBuffer : noncopyable
 
 }  // namespace detail
 
-class LogStream : noncopyable
+class LogStream : muduo::noncopyable
 {
   typedef LogStream self;
  public:

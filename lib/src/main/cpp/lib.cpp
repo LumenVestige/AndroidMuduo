@@ -1,10 +1,17 @@
 #include <jni.h>
 #include <string>
+#include "echo.h"
+#include "muduo/net/EventLoop.h"
 
 extern "C" JNIEXPORT jstring JNICALL
 Java_com_sanyinchen_lib_NativeLib_stringFromJNI(
         JNIEnv* env,
         jobject /* this */) {
-    std::string hello = "Hello from C++";
-    return env->NewStringUTF(hello.c_str());
+
+    muduo::net::EventLoop loop;
+    muduo::net::InetAddress listenAddr(2007);
+    EchoServer server(&loop, listenAddr);
+    server.start();
+    loop.loop();
+    return env->NewStringUTF("");
 }

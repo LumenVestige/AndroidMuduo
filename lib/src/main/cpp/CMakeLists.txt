@@ -6,6 +6,7 @@
 cmake_minimum_required(VERSION 3.22.1)
 
 project("local-tcp")
+message(STATUS "CXX_FLAGS = " ${CMAKE_CXX_FLAGS} " " ${CMAKE_CXX_FLAGS_${BUILD_TYPE}})
 
 #-Wall:
 #启用所有常规的警告消息。这有助于发现潜在的代码问题。
@@ -35,6 +36,7 @@ add_compile_options(
 )
 include_directories(.)
 include_directories(boost/boost_1_63_0)
+include_directories(muduo)
 
 add_subdirectory(boost)
 add_subdirectory(muduo)
@@ -46,5 +48,6 @@ add_library(${CMAKE_PROJECT_NAME} SHARED
 
 target_link_libraries(${CMAKE_PROJECT_NAME}
         # List libraries link to the target library
+        muduo_net
         android
         log)
