@@ -9,7 +9,11 @@ android {
 
     defaultConfig {
         minSdk 22
-
+        externalNativeBuild {
+            cmake {
+                cppFlags "-std=c++17"
+            }
+        }
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
     }

@@ -7,6 +7,14 @@ cmake_minimum_required(VERSION 3.22.1)
 
 project("local-tcp")
 message(STATUS "CXX_FLAGS = " ${CMAKE_CXX_FLAGS} " " ${CMAKE_CXX_FLAGS_${BUILD_TYPE}})
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+message(STATUS "C++ compiler: ${CMAKE_CXX_COMPILER}")
+message(STATUS "C++ compiler ID: ${CMAKE_CXX_COMPILER_ID}")
+message(STATUS "C++ compiler version: ${CMAKE_CXX_COMPILER_VERSION}")
+
+
 
 #-Wall:
 #启用所有常规的警告消息。这有助于发现潜在的代码问题。
@@ -26,7 +34,7 @@ message(STATUS "CXX_FLAGS = " ${CMAKE_CXX_FLAGS} " " ${CMAKE_CXX_FLAGS_${BUILD_T
 #启用最高级别的优化选项。这会生成更快的代码，但可能会使编译时间更长。
 add_compile_options(
         -Wall
-        -std=c++14
+        -std=c++17
         -pthread
         -fno-omit-frame-pointer
         -fexceptions
