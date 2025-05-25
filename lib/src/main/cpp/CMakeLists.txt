@@ -46,8 +46,8 @@ add_subdirectory(muduo)
 
 add_library(${CMAKE_PROJECT_NAME} SHARED
         # List C/C++ source files with relative paths to this CMakeLists.txt.
-        lib.cpp
-        echo.cc)
+        onLoad.cpp
+        business/echo/echo.cc)
 
 target_link_libraries(${CMAKE_PROJECT_NAME}
         # List libraries link to the target library
