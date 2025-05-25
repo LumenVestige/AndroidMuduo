@@ -17,5 +17,5 @@ set(base_SRCS
 )
 
 add_library(muduo_base STATIC ${base_SRCS})
-target_link_libraries(muduo_base pthread rt)
+target_link_libraries(muduo_base)
 

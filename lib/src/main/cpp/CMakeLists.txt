@@ -6,15 +6,9 @@
 cmake_minimum_required(VERSION 3.22.1)
 
 project("local-tcp")
-message(STATUS "CXX_FLAGS = " ${CMAKE_CXX_FLAGS} " " ${CMAKE_CXX_FLAGS_${BUILD_TYPE}})
-set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
-
-message(STATUS "C++ compiler: ${CMAKE_CXX_COMPILER}")
-message(STATUS "C++ compiler ID: ${CMAKE_CXX_COMPILER_ID}")
-message(STATUS "C++ compiler version: ${CMAKE_CXX_COMPILER_VERSION}")
 
 
+add_definitions(-D_FILE_OFFSET_BITS=64)
 
 #-Wall:
 #启用所有常规的警告消息。这有助于发现潜在的代码问题。
@@ -52,7 +46,8 @@ add_subdirectory(muduo)
 
 add_library(${CMAKE_PROJECT_NAME} SHARED
         # List C/C++ source files with relative paths to this CMakeLists.txt.
-        lib.cpp)
+        lib.cpp
+        echo.cc)
 
 target_link_libraries(${CMAKE_PROJECT_NAME}
         # List libraries link to the target library

@@ -28,7 +28,10 @@ set(net_SRCS
 )
 
 add_library(muduo_net STATIC ${net_SRCS})
-target_link_libraries(muduo_net muduo_base)
+target_link_libraries(muduo_net
+        muduo_base
+        android
+        log)
 
 #set(HEADERS
 #  Buffer.h
