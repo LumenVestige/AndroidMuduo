@@ -67,10 +67,10 @@ class Logger
   ~Logger();
 
   LogStream& stream() { return impl_.stream_; }
-
+  using LogCallback = std::function<void(const std::string&)>;
   static LogLevel logLevel();
   static void setLogLevel(LogLevel level);
-
+  static void setLogCallBack(LogCallback cb);
   typedef void (*OutputFunc)(const char* msg, int len);
   typedef void (*FlushFunc)();
   static void setOutput(OutputFunc);
@@ -78,7 +78,7 @@ class Logger
   static void setTimeZone(const TimeZone& tz);
 
  private:
-
+    static LogCallback logCallback_;
 class Impl
 {
  public:

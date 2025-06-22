@@ -17,6 +17,7 @@
 #include <android/log.h>
 
 namespace muduo {
+    Logger::LogCallback Logger::logCallback_; // 定义
 
 /*
 class LoggerImpl
@@ -148,6 +149,9 @@ Logger::Impl::Impl(LogLevel level, int savedErrno, const SourceFile &file, int l
     if (savedErrno != 0) {
         stream_ << strerror_tl(savedErrno) << " (errno=" << savedErrno << ") ";
     }
+    if (logCallback_) {
+        logCallback_(stream_.buffer().toString());
+    }
 }
 
 void Logger::Impl::formatTime() {
@@ -226,4 +230,8 @@ void Logger::setFlush(FlushFunc flush) {
 
 void Logger::setTimeZone(const TimeZone &tz) {
     g_logTimeZone = tz;
+}
+
+void Logger::setLogCallBack(Logger::LogCallback cb) {
+    logCallback_ = cb;
 }

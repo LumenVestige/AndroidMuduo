@@ -4,22 +4,25 @@
 #include "muduo/net/TcpServer.h"
 
 // RFC 862
-class EchoServer
-{
- public:
-  EchoServer(muduo::net::EventLoop* loop,
-             const muduo::net::InetAddress& listenAddr);
+class EchoServer {
+public:
+    using EchoCallback = std::function<void(const std::string &)>;
 
-  void start();  // calls server_.start();
+    EchoServer(muduo::net::EventLoop *loop,
+               const EchoCallback &callback,
+               const muduo::net::InetAddress &listenAddr);
 
- private:
-  void onConnection(const muduo::net::TcpConnectionPtr& conn);
+    void start();  // calls server_.start();
 
-  void onMessage(const muduo::net::TcpConnectionPtr& conn,
-                 muduo::net::Buffer* buf,
-                 muduo::Timestamp time);
+private:
+    void onConnection(const muduo::net::TcpConnectionPtr &conn);
 
-  muduo::net::TcpServer server_;
+    void onMessage(const muduo::net::TcpConnectionPtr &conn,
+                   muduo::net::Buffer *buf,
+                   muduo::Timestamp time);
+
+    EchoCallback callback_;
+    muduo::net::TcpServer server_;
 };
 
 #endif  // MUDUO_EXAMPLES_SIMPLE_ECHO_ECHO_H

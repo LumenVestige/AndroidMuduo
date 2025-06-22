@@ -10,8 +10,9 @@ using std::placeholders::_3;
 // using namespace muduo::net;
 
 EchoServer::EchoServer(muduo::net::EventLoop *loop,
+                       const EchoCallback &echoCallback,
                        const muduo::net::InetAddress &listenAddr)
-        : server_(loop, listenAddr, "EchoServer") {
+        : server_(loop, listenAddr, "EchoServer"), callback_(echoCallback) {
     server_.setConnectionCallback(
             std::bind(&EchoServer::onConnection, this, _1));
     server_.setMessageCallback(
@@ -35,6 +36,6 @@ void EchoServer::onMessage(const muduo::net::TcpConnectionPtr &conn,
     LOG_INFO << conn->name() << " echo " << msg.size() << " bytes, "
              << "data received at " << time.toString();
     LOG_INFO << "receive msg:" << msg;
-    conn->send(msg);
+    callback_("EchoServer receive msg:" + msg + "            --from:［" + conn->name() + "］");
 }
 
